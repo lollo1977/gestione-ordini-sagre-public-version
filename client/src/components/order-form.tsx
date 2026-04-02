@@ -88,10 +88,12 @@ export default function OrderForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!tableNumber || !customerName || orderItems.size === 0) {
+    const missingTable = settings.showTableNumber && !tableNumber;
+    const missingCustomer = settings.showCustomerName && !customerName;
+    if (missingTable || missingCustomer || orderItems.size === 0) {
       toast({
         title: "Campi mancanti",
-        description: "Compila tutti i campi e aggiungi almeno un piatto",
+        description: "Compila tutti i campi obbligatori e aggiungi almeno un piatto",
         variant: "destructive",
       });
       return;
@@ -113,9 +115,9 @@ export default function OrderForm() {
 
     const total = calculateTotal();
     const order: InsertOrder = {
-      tableNumber: tableNumber,
-      customerName,
-      covers,
+      tableNumber: settings.showTableNumber ? tableNumber : "-",
+      customerName: settings.showCustomerName ? customerName : "-",
+      covers: settings.showCovers ? (covers || 1) : 1,
       total: total.toFixed(2),
       paymentMethod,
       status: "active",
@@ -150,41 +152,52 @@ export default function OrderForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label htmlFor="tableNumber">Numero Tavolo</Label>
-              <Input
-                id="tableNumber"
-                type="text"
-                value={tableNumber}
-                onChange={(e) => setTableNumber(e.target.value)}
-                placeholder="Es. 1, A2, VIP"
-                className="text-lg"
-              />
+          {(settings.showTableNumber || settings.showCustomerName || settings.showCovers) && (
+            <div className={`grid gap-4 ${[settings.showTableNumber, settings.showCustomerName, settings.showCovers].filter(Boolean).length === 1 ? "grid-cols-1" : [settings.showTableNumber, settings.showCustomerName, settings.showCovers].filter(Boolean).length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+              {settings.showTableNumber && (
+                <div>
+                  <Label htmlFor="tableNumber">{settings.tableLabel || "Tavolo"}</Label>
+                  <Input
+                    id="tableNumber"
+                    type="text"
+                    value={tableNumber}
+                    onChange={(e) => setTableNumber(e.target.value)}
+                    placeholder="Es. 1, A2, VIP"
+                    className="text-lg"
+                    data-testid="input-tableNumber"
+                  />
+                </div>
+              )}
+              {settings.showCustomerName && (
+                <div>
+                  <Label htmlFor="customerName">{settings.customerLabel || "Cliente"}</Label>
+                  <Input
+                    id="customerName"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="Mario Rossi"
+                    data-testid="input-customerName"
+                  />
+                </div>
+              )}
+              {settings.showCovers && (
+                <div>
+                  <Label htmlFor="covers">{settings.coversLabel || "Coperti"}</Label>
+                  <Input
+                    id="covers"
+                    type="number"
+                    value={covers}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setCovers(val === "" ? "" : parseInt(val));
+                    }}
+                    className="text-lg"
+                    data-testid="input-covers"
+                  />
+                </div>
+              )}
             </div>
-            <div>
-              <Label htmlFor="customerName">Nome Cliente</Label>
-              <Input
-                id="customerName"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="Mario Rossi"
-              />
-            </div>
-            <div>
-              <Label htmlFor="covers">Numero Coperti</Label>
-              <Input
-                id="covers"
-                type="number"
-                value={covers}
-                onChange={(e) => {
-                                const val = e.target.value;
-                                setCovers(val === "" ? "" : parseInt(val));
-                        }}
-                className="text-lg"
-              />
-            </div>
-          </div>
+          )}
 
           <div>
             <Label>Seleziona Piatti per Categoria</Label>

@@ -24,6 +24,9 @@ const defaultSettings: AppSettings = {
   numberOfRegisters: CONFIG.numberOfRegisters,
   coverPrice: CONFIG.coverPrice,
   takeawayEnabled: CONFIG.takeawayEnabled,
+  showTableNumber: CONFIG.showTableNumber,
+  showCustomerName: CONFIG.showCustomerName,
+  showCovers: CONFIG.showCovers,
   dishCategories: { ...CONFIG.dishCategories },
 };
 

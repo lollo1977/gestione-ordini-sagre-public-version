@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -74,6 +75,10 @@ export default function Settings() {
   });
 
   const set = (field: keyof AppSettings, value: string | number) => {
+    setForm(f => ({ ...f, [field]: value }));
+  };
+
+  const setBool = (field: keyof AppSettings, value: boolean) => {
     setForm(f => ({ ...f, [field]: value }));
   };
 
@@ -157,9 +162,6 @@ export default function Settings() {
             <div className="space-y-3">
               <p className="text-sm text-gray-600">
                 Inserisci il codice di attivazione per sbloccare la versione PRO e rimuovere il branding Luna Wolfie.
-              </p>
-              <p className="text-xs text-gray-400">
-                Il codice è formato dal nome della sagra (senza spazi) seguito da <code className="bg-gray-100 px-1 rounded">LUNA2026</code>.
               </p>
               <div className="flex gap-2">
                 <Input
@@ -267,6 +269,38 @@ export default function Settings() {
             <div>
               <Label htmlFor="coversLabel">Etichetta coperti</Label>
               <Input id="coversLabel" data-testid="input-coversLabel" value={form.coversLabel} onChange={e => set("coversLabel", e.target.value)} placeholder="Coperti" className="mt-1" />
+            </div>
+          </div>
+          <div className="border-t pt-4">
+            <p className="text-sm font-medium text-gray-700 mb-3">Campi visibili nel form ordine</p>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="showTableNumber" className="cursor-pointer">Numero tavolo</Label>
+                <Switch
+                  id="showTableNumber"
+                  data-testid="switch-showTableNumber"
+                  checked={form.showTableNumber}
+                  onCheckedChange={v => setBool("showTableNumber", v)}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="showCustomerName" className="cursor-pointer">Nome cliente</Label>
+                <Switch
+                  id="showCustomerName"
+                  data-testid="switch-showCustomerName"
+                  checked={form.showCustomerName}
+                  onCheckedChange={v => setBool("showCustomerName", v)}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="showCovers" className="cursor-pointer">Numero coperti</Label>
+                <Switch
+                  id="showCovers"
+                  data-testid="switch-showCovers"
+                  checked={form.showCovers}
+                  onCheckedChange={v => setBool("showCovers", v)}
+                />
+              </div>
             </div>
           </div>
         </CardContent>
