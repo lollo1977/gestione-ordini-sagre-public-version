@@ -1,3 +1,9 @@
+/**
+ * (c) 2024-2030 Lorenzo Formento (Luna Wolfie)
+ * Progetto: Gestione Ordini Sagra
+ * Licenza Proprietaria v2.1 - Tutti i diritti riservati.
+ * Consultare il file LICENSE nella root del progetto per i termini completi.
+ */
 import { useState } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";

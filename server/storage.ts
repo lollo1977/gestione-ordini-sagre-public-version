@@ -1,3 +1,9 @@
+/**
+ * (c) 2024-2030 Lorenzo Formento (Luna Wolfie)
+ * Progetto: Gestione Ordini Sagra
+ * Licenza Proprietaria v2.1 - Tutti i diritti riservati.
+ * Consultare il file LICENSE nella root del progetto per i termini completi.
+ */
 import { eq } from "drizzle-orm";
 import { db } from "./db";
 import { dishes as dishesTable, orders as ordersTable, orderItems as orderItemsTable, appSettingsTable, type Dish, type InsertDish, type Order, type InsertOrder, type OrderItem, type InsertOrderItem, type OrderWithItems, type DishSales, type DailyStats, type AppSettings } from "@shared/schema";
