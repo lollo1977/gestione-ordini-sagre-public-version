@@ -120,7 +120,8 @@ All components automatically read from these two files — no other changes need
 
 ### Storage Layer
 - **IStorage Interface**: Abstraction for data operations
-- **MemStorage**: In-memory implementation for development/testing
+- **DatabaseStorage**: PostgreSQL-backed persistent storage (active)
+- **MemStorage**: In-memory implementation (kept as fallback)
 - **Database Operations**: Full CRUD operations with proper error handling
 
 ## Data Flow

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, decimal, integer, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, decimal, integer, timestamp, boolean, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { DISH_CATEGORIES as _DISH_CATEGORIES } from "./config";
@@ -61,6 +61,11 @@ export type OrderWithItems = Order & {
 // Categories - sourced from shared/config.ts for easy customization
 export const DISH_CATEGORIES = _DISH_CATEGORIES;
 export type DishCategory = string;
+
+export const appSettingsTable = pgTable("app_settings", {
+  id: integer("id").primaryKey().default(1),
+  data: jsonb("data").notNull(),
+});
 
 // App settings type
 export type AppSettings = {
