@@ -1,4 +1,4 @@
-Licenza d'Uso Proprietaria "Luna Wolfie" v2.1
+Licenza d'Uso Proprietaria "Luna Wolfie" v2.0
 Licenziante: Lorenzo Formento (Luna Wolfie)
 
 Software: Gestione Ordini Sagra Change Date (Rilascio Open Source): 01-01-2030
@@ -6,7 +6,7 @@ Software: Gestione Ordini Sagra Change Date (Rilascio Open Source): 01-01-2030
 Licenza Successiva (post-2030): Apache License 2.0
 
 1. Natura della Licenza e Proprietà
-Il Software è proprietà intellettuale esclusiva di Lorenzo Formento. Non è un software "Open Source" fino alla data indicata al punto 8. L'accesso al codice su piattaforme pubbliche (es. GitHub) non implica il diritto di utilizzo illimitato, che resta regolato dai presenti termini. Tutti i diritti non espressamente concessi sono riservati al Licenziante.
+Il Software è proprietà intellettuale esclusiva di Lorenzo Formento. Non è un software "Open Source" fino alla data indicata al punto 8. L'accesso al codice su piattaforme pubbliche (es. GitHub) non implica il diritto di utilizzo illimitato, che resta regolato dai presenti termini.
 
 2. Registrazione e Attivazione Licenza PRO
 Per l'utilizzo della Licenza PRO (Commerciale), è obbligatorio contattare lo sviluppatore all'indirizzo bibocchia05@gmail.com. La registrazione via email è condizione necessaria per procedere alla verifica dei dati, al pagamento e al conseguente rilascio del codice di attivazione indispensabile per l'abilitazione delle funzioni avanzate.
@@ -17,7 +17,7 @@ Il pagamento della fee per la Licenza PRO o per le personalizzazioni può essere
 4. Destinazione d'Uso e Recesso
 Uso Gratuito: Riservato esclusivamente a No-Profit, associazioni di volontariato e scopi personali/didattici.
 
-Licenza PRO: Obbligatoria per eventi a scopo di lucro o attività commerciali. Fee standard di 5,00 € una tantum. L’utilizzo commerciale senza regolare attivazione costituisce violazione della presente licenza.
+Licenza PRO: Obbligatoria per eventi a scopo di lucro o attività commerciali. Fee standard di 5,00 €. L’utilizzo commerciale senza regolare attivazione costituisce violazione della presente licenza.
 
 Recesso: Deve essere comunicato via email. L'utente può richiedere in ogni momento l'accesso, la rettifica o la cancellazione dei propri dati.
 
