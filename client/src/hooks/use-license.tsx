@@ -1,28 +1,8 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { buildLicenseCode } from "@/lib/license";
 
 const LS_PRO = "luna_wolfie_is_pro";
 const LS_EVENT = "luna_wolfie_licensed_event";
-
-function buildCode(eventName: string): string {
-  const SECRET = "LW$2026#SAGRA!";
-  const input = eventName.toUpperCase().replace(/\s+/g, "") + SECRET;
-
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < input.length; i++) {
-    hash ^= input.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-
-  const CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-  let result = "";
-  let h = hash >>> 0;
-  for (let i = 0; i < 8; i++) {
-    result += CHARS[h % CHARS.length];
-    h = Math.floor(h / CHARS.length);
-  }
-
-  return result.slice(0, 4) + "-" + result.slice(4);
-}
 
 type LicenseCtx = {
   isPro: boolean;
@@ -49,7 +29,6 @@ export function LicenseProvider({
     return stored && storedEvent === eventName;
   });
 
-  // Revoke license automatically when eventName changes
   useEffect(() => {
     const storedEvent = localStorage.getItem(LS_EVENT) ?? "";
     if (isPro && storedEvent !== eventName) {
@@ -60,7 +39,7 @@ export function LicenseProvider({
   }, [eventName, isPro]);
 
   const activateLicense = (code: string): boolean => {
-    if (code.trim() === buildCode(eventName)) {
+    if (code.trim() === buildLicenseCode(eventName)) {
       setIsPro(true);
       localStorage.setItem(LS_PRO, "true");
       localStorage.setItem(LS_EVENT, eventName);

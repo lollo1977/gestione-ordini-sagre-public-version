@@ -7,6 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { exportBackup } from "@/lib/backup";
 import type { AppSettings } from "@shared/schema";
 import { CONFIG } from "@shared/config";
+import { buildLicenseCode } from "@/lib/license";
 
 const LS_SETUP = "luna_wolfie_setup_complete";
 const LS_PRO = "luna_wolfie_is_pro";
@@ -20,10 +21,6 @@ type WizardDish = { name: string; price: string; category: string };
 
 export function isSetupComplete(): boolean {
   return localStorage.getItem(LS_SETUP) === "true";
-}
-
-function buildLicenseCode(eventName: string): string {
-  return eventName.replace(/\s+/g, "") + "LUNA2026";
 }
 
 // ── Progress bar ─────────────────────────────────────────────
