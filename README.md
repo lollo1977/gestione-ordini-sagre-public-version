@@ -65,7 +65,7 @@ Obbligatoria per eventi a scopo di lucro, grandi sagre o attività commerciali.
 
 ### Prerequisiti
 - [Node.js](https://nodejs.org) installato sul tuo computer (versione 18 o superiore)
-- [Git](https://git-scm.com/download/win) installato sul tuo computer (necessario per caricare il progetto su GitHub)
+- [Git](https://git-scm.com) installato sul tuo computer (necessario per caricare il progetto su GitHub)
 - Un account [GitHub](https://github.com) e [Render](https://render.com)
 
 ### 1. Scarica il progetto
