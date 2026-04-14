@@ -2,15 +2,10 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { createInterface } from "readline";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, "..");
-
-const eventName = process.argv[2];
-if (!eventName) {
-  console.error('Uso: node scripts/setup-render.js "Nome Evento"');
-  process.exit(1);
-}
 
 function toSlug(name) {
   return name
@@ -30,12 +25,13 @@ function toDbName(name) {
     .replace(/^_|_$/g, "");
 }
 
-const slug = toSlug(eventName);
-const dbSlug = slug + "-db";
-const dbName = toDbName(eventName);
-const appName = slug + "-pos";
+function generate(eventName) {
+  const slug = toSlug(eventName);
+  const dbSlug = slug + "-db";
+  const dbName = toDbName(eventName);
+  const appName = slug + "-pos";
 
-const yaml = `services:
+  const yaml = `services:
   - type: web
     name: ${appName}
     env: node
@@ -57,7 +53,26 @@ databases:
     user: restaurant_user
 `;
 
-writeFileSync(join(rootDir, "render.yaml"), yaml);
-console.log(`render.yaml aggiornato per: "${eventName}"`);
-console.log(`  App:      ${appName}`);
-console.log(`  Database: ${dbSlug} (${dbName})`);
+  writeFileSync(join(rootDir, "render.yaml"), yaml);
+  console.log(`\nrender.yaml aggiornato per: "${eventName}"`);
+  console.log(`  App:      ${appName}`);
+  console.log(`  Database: ${dbSlug} (${dbName})`);
+  console.log(`\nOra fai il push su GitHub e usa il Blueprint su Render.`);
+}
+
+const eventName = process.argv[2];
+
+if (eventName) {
+  generate(eventName);
+} else {
+  const rl = createInterface({ input: process.stdin, output: process.stdout });
+  console.log("=== Configurazione Render ===");
+  rl.question("Inserisci il nome dell'evento (es. Sagra del Mare 2026): ", (answer) => {
+    rl.close();
+    if (!answer.trim()) {
+      console.error("Errore: il nome dell'evento non può essere vuoto.");
+      process.exit(1);
+    }
+    generate(answer.trim());
+  });
+}
