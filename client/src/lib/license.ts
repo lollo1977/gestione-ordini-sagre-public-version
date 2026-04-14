@@ -1,21 +1,13 @@
-const SECRET = "LW$2026#SAGRA!";
-const CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-
-export function buildLicenseCode(eventName: string): string {
-  const input = eventName.toUpperCase().replace(/\s+/g, "") + SECRET;
-
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < input.length; i++) {
-    hash ^= input.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
+export async function validateLicenseCode(eventName: string, code: string): Promise<boolean> {
+  try {
+    const res = await fetch("/api/license/validate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ eventName, code }),
+    });
+    const data = await res.json();
+    return data.valid === true;
+  } catch {
+    return false;
   }
-
-  let result = "";
-  let h = hash >>> 0;
-  for (let i = 0; i < 8; i++) {
-    result += CHARS[h % CHARS.length];
-    h = Math.floor(h / CHARS.length);
-  }
-
-  return result.slice(0, 4) + "-" + result.slice(4);
 }

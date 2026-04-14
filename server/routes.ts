@@ -35,9 +35,35 @@ function broadcastToClients(data: any, excludeRegisterId?: number) {
   });
 }
 
+function buildServerLicenseCode(eventName: string, secret: string): string {
+  const input = eventName.toUpperCase().replace(/\s+/g, "") + secret;
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < input.length; i++) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  const CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let result = "";
+  let h = hash >>> 0;
+  for (let i = 0; i < 8; i++) {
+    result += CHARS[h % CHARS.length];
+    h = Math.floor(h / CHARS.length);
+  }
+  return result.slice(0, 4) + "-" + result.slice(4);
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Serve static files from attached_assets
   app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
+
+  // License validation — secret stays server-side only
+  app.post("/api/license/validate", (req, res) => {
+    const { eventName, code } = req.body;
+    const secret = process.env.LICENSE_SECRET;
+    if (!secret) return res.status(503).json({ valid: false });
+    const expected = buildServerLicenseCode(eventName ?? "", secret);
+    res.json({ valid: (code ?? "").trim() === expected });
+  });
   
   // Dishes routes
   app.get("/api/dishes", async (req, res) => {
