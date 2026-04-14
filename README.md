@@ -1,4 +1,4 @@
-# 🐺 Gestione Ordini Sagra - by Luna Wolfie
+# 🐺 Gestione Ordini Sagra - by Luna Wolfie 
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Licenza](https://img.shields.io/badge/Licenza-Proprietaria-blue)
