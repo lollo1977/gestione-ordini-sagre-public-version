@@ -88,8 +88,7 @@ git push
 2. Clicca su **New + → Blueprint**
 3. Collega la tua repository GitHub
 4. Render creerà automaticamente il **database** e il **servizio web**
-5. **Imposta il segreto privato:** nella dashboard di Render, vai sul servizio web → Environment → aggiungi `LICENSE_SECRET` con il tuo valore segreto (deve essere lo stesso usato nello script al punto 2)
-6. Dopo circa 5-8 minuti l'app sarà online all'indirizzo:
+5. Dopo circa 5-8 minuti l'app sarà online all'indirizzo:
    ```
    https://nome-evento-pos.onrender.com
    ```

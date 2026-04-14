@@ -1,18 +1,18 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
-import { validateLicenseCode } from "@/lib/license";
+import { buildLicenseCode } from "@/lib/license";
 
 const LS_PRO = "luna_wolfie_is_pro";
 const LS_EVENT = "luna_wolfie_licensed_event";
 
 type LicenseCtx = {
   isPro: boolean;
-  activateLicense: (code: string) => Promise<boolean>;
+  activateLicense: (code: string) => boolean;
   revokeLicense: () => void;
 };
 
 const LicenseContext = createContext<LicenseCtx>({
   isPro: false,
-  activateLicense: async () => false,
+  activateLicense: () => false,
   revokeLicense: () => {},
 });
 
@@ -38,14 +38,14 @@ export function LicenseProvider({
     }
   }, [eventName, isPro]);
 
-  const activateLicense = async (code: string): Promise<boolean> => {
-    const valid = await validateLicenseCode(eventName, code);
-    if (valid) {
+  const activateLicense = (code: string): boolean => {
+    if (code.trim() === buildLicenseCode(eventName)) {
       setIsPro(true);
       localStorage.setItem(LS_PRO, "true");
       localStorage.setItem(LS_EVENT, eventName);
+      return true;
     }
-    return valid;
+    return false;
   };
 
   const revokeLicense = () => {

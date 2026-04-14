@@ -110,8 +110,8 @@ export default function Settings() {
     setNewCatLabel("");
   };
 
-  const handleActivateLicense = async () => {
-    const ok = await activateLicense(licenseCode);
+  const handleActivateLicense = () => {
+    const ok = activateLicense(licenseCode);
     if (ok) {
       toast({ title: "✅ Licenza PRO attivata", description: "Tutte le funzioni PRO sono ora disponibili." });
       setLicenseCode("");

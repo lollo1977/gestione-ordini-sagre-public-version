@@ -25,29 +25,16 @@ function toDbName(name) {
     .replace(/^_|_$/g, "");
 }
 
-function generateLicenseCode(eventName, secret) {
-  const input = eventName.toUpperCase().replace(/\s+/g, "") + secret;
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < input.length; i++) {
-    hash ^= input.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  const CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-  let result = "";
-  let h = hash >>> 0;
-  for (let i = 0; i < 8; i++) {
-    result += CHARS[h % CHARS.length];
-    h = Math.floor(h / CHARS.length);
-  }
-  return result.slice(0, 4) + "-" + result.slice(4);
+function generateLicenseCode(eventName) {
+  return eventName.replace(/\s+/g, "") + "LUNA2026";
 }
 
-function generate(eventName, secret) {
+function generate(eventName) {
   const slug = toSlug(eventName);
   const dbSlug = slug + "-db";
   const dbName = toDbName(eventName);
   const appName = slug + "-pos";
-  const licenseCode = generateLicenseCode(eventName, secret);
+  const licenseCode = generateLicenseCode(eventName);
 
   const yaml = `services:
   - type: web
@@ -59,8 +46,6 @@ function generate(eventName, secret) {
     envVars:
       - key: NODE_ENV
         value: production
-      - key: LICENSE_SECRET
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: ${dbSlug}
@@ -80,13 +65,7 @@ databases:
   console.log(`   Database:       ${dbSlug} (${dbName})`);
   console.log(`\n🔑 Codice PRO:    ${licenseCode}`);
   console.log(`   → Invialo al cliente dopo il pagamento.\n`);
-  console.log(`⚠️  IMPORTANTE: dopo il deploy su Render, imposta manualmente:`);
-  console.log(`   LICENSE_SECRET = (il tuo segreto privato)\n`);
   console.log(`Prossimo passo: git add render.yaml && git commit -m "Setup ${eventName}" && git push\n`);
-}
-
-async function ask(rl, question) {
-  return new Promise(resolve => rl.question(question, resolve));
 }
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -94,20 +73,17 @@ const rl = createInterface({ input: process.stdin, output: process.stdout });
 console.log("=== Configurazione Render - Luna Wolfie ===\n");
 
 const eventArg = process.argv[2];
-const eventName = eventArg ? eventArg.trim() : (await ask(rl, "Nome dell'evento (es. Sagra del Mare 2026): ")).trim();
 
-if (!eventName) {
-  console.error("Errore: il nome dell'evento non può essere vuoto.");
+if (eventArg) {
   rl.close();
-  process.exit(1);
+  generate(eventArg.trim());
+} else {
+  rl.question("Nome dell'evento (es. Sagra del Mare 2026): ", (answer) => {
+    rl.close();
+    if (!answer.trim()) {
+      console.error("Errore: il nome dell'evento non può essere vuoto.");
+      process.exit(1);
+    }
+    generate(answer.trim());
+  });
 }
-
-const secret = process.env.LICENSE_SECRET || (await ask(rl, "Il tuo segreto privato (LICENSE_SECRET): ")).trim();
-rl.close();
-
-if (!secret) {
-  console.error("Errore: il segreto non può essere vuoto.");
-  process.exit(1);
-}
-
-generate(eventName, secret);

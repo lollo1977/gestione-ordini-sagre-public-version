@@ -7,7 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { exportBackup } from "@/lib/backup";
 import type { AppSettings } from "@shared/schema";
 import { CONFIG } from "@shared/config";
-import { validateLicenseCode } from "@/lib/license";
+import { buildLicenseCode } from "@/lib/license";
 
 const LS_SETUP = "luna_wolfie_setup_complete";
 const LS_PRO = "luna_wolfie_is_pro";
@@ -128,9 +128,8 @@ export default function SetupWizard() {
     setDishes(d => d.map((dish, idx) => idx === i ? { ...dish, [field]: val } : dish));
 
   // ── License check ───────────────────────────────────────────
-  const checkLicense = async () => {
-    const valid = await validateLicenseCode(eventName, licenseCode);
-    if (valid) {
+  const checkLicense = () => {
+    if (licenseCode.trim() === buildLicenseCode(eventName)) {
       setLicenseOk(true);
       setLicenseError("");
     } else {
