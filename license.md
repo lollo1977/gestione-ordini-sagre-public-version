@@ -1,4 +1,4 @@
-Licenza d'Uso Proprietaria "Luna Wolfie" v2.1
+Licenza d'Uso Proprietaria "Luna Wolfie" v2.1 
 Licenziante: Lorenzo Formento (Luna Wolfie)
 
 Software: Gestione Ordini Sagra Change Date (Rilascio Open Source): 01-01-2030
