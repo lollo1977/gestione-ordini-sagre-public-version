@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: restaurant-pos
+    name: crcs-bergeggi-pos
     env: node
     plan: free
     buildCommand: npm install --include=dev && npm run build && npm run db:push
@@ -16,5 +16,5 @@ services:
 databases:
   - name: crcs-bergeggi-db
     plan: free
-    databaseName: restaurant_pos
+    databaseName: crcs_bergeggi
     user: restaurant_user
