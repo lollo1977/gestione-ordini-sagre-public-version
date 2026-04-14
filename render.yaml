@@ -12,10 +12,9 @@ services:
         fromDatabase:
           name: crcs-bergeggi-db
           property: connectionString
-  
-  - type: pserv
-    name: crcs-bergeggi-db
-    env: postgresql
+
+databases:
+  - name: crcs-bergeggi-db
     plan: free
     databaseName: restaurant_pos
     user: restaurant_user
