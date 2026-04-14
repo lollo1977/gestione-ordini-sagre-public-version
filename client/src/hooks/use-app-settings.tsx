@@ -22,6 +22,7 @@ const defaultSettings: AppSettings = {
   kitchenReceiptMessage: CONFIG.kitchenReceiptMessage,
   customerReceiptMessage: CONFIG.customerReceiptMessage,
   numberOfRegisters: CONFIG.numberOfRegisters,
+  registerNames: { ...CONFIG.registerNames },
   coverPrice: CONFIG.coverPrice,
   takeawayEnabled: CONFIG.takeawayEnabled,
   showTableNumber: CONFIG.showTableNumber,

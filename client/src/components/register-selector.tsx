@@ -6,10 +6,11 @@ import { Monitor } from "lucide-react";
 
 interface RegisterSelectorProps {
   numberOfRegisters: number;
+  registerNames: Record<string, string>;
   onRegisterSelect: (registerId: number) => void;
 }
 
-export default function RegisterSelector({ numberOfRegisters, onRegisterSelect }: RegisterSelectorProps) {
+export default function RegisterSelector({ numberOfRegisters, registerNames, onRegisterSelect }: RegisterSelectorProps) {
   const [selectedRegister, setSelectedRegister] = useState<number | null>(null);
 
   const { data: connectedRegisters = [] } = useQuery<number[]>({
@@ -62,7 +63,10 @@ export default function RegisterSelector({ numberOfRegisters, onRegisterSelect }
                     </span>
                   )}
                   <Monitor className="w-6 h-6" />
-                  <span className="font-semibold text-base">CASSA {n}</span>
+                  <span className="font-semibold text-base">{registerNames[String(n)] || `CASSA ${n}`}</span>
+                  {registerNames[String(n)] && (
+                    <span className="text-[10px] opacity-70">Cassa {n}</span>
+                  )}
                 </Button>
               );
             })}
@@ -76,7 +80,7 @@ export default function RegisterSelector({ numberOfRegisters, onRegisterSelect }
                 className="w-full h-12 text-lg font-semibold"
                 size="lg"
               >
-                Conferma Cassa {selectedRegister}
+                Conferma {selectedRegister ? (registerNames[String(selectedRegister)] || `Cassa ${selectedRegister}`) : ""}
               </Button>
             </div>
           )}

@@ -113,6 +113,10 @@ export const CONFIG = {
   /** Number of active registers */
   numberOfRegisters: 2,
 
+  /** Nomi personalizzati per ogni cassa (es. { "1": "Cassa Pizze", "2": "Cassa Bar" }) */
+  /** Custom names for each register (e.g. { "1": "Pizza Counter", "2": "Bar" }) */
+  registerNames: {} as Record<string, string>,
+
   /** Prezzo del coperto (0 = disabilitato) */
   coverPrice: 0,
 

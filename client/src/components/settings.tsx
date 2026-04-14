@@ -257,6 +257,27 @@ export default function Settings() {
               </SelectContent>
             </Select>
           </div>
+
+          <div>
+            <Label>Nomi personalizzati delle casse <span className="text-gray-400 font-normal">(opzionale)</span></Label>
+            <div className={`mt-2 grid gap-2 ${form.numberOfRegisters <= 2 ? "grid-cols-1" : form.numberOfRegisters <= 4 ? "grid-cols-2" : "grid-cols-3"}`}>
+              {Array.from({ length: form.numberOfRegisters }, (_, i) => i + 1).map(n => (
+                <div key={n} className="flex items-center gap-2">
+                  <span className="text-xs text-gray-500 w-16 shrink-0">Cassa {n}</span>
+                  <Input
+                    data-testid={`input-registerName-${n}`}
+                    value={form.registerNames?.[String(n)] ?? ""}
+                    onChange={e => setForm(f => ({
+                      ...f,
+                      registerNames: { ...f.registerNames, [String(n)]: e.target.value }
+                    }))}
+                    placeholder={`Cassa ${n}`}
+                    className="text-sm"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <Label htmlFor="tableLabel">Etichetta tavolo</Label>

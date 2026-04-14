@@ -14,6 +14,7 @@
 * 📱 **Multi-dispositivo:** Funziona su PC, Tablet e Smartphone via browser.
 * 🔗 **WebSocket Real-time:** Gli ordini arrivano in cucina istantaneamente e si sincronizzano tra tutte le casse.
 * 🏪 **N Casse Configurabili:** Configura quante casse servono (1–10) dal wizard iniziale o dalle impostazioni. Ogni cassa vede in tempo reale quali altre sono attive.
+* ✏️ **Nomi Personalizzati:** Assegna un nome a ogni cassa (es. "Cassa Pizze", "Cassa Bar") — il nome appare nell'header e nel selettore all'avvio.
 * 📶 **Indicatore di Connessione:** Ogni cassa mostra un badge verde/rosso per sapere sempre se la sincronizzazione è attiva.
 * 📊 **Riepilogo Totali:** Gestione automatica dei conti, delle quantità e del resto per pagamenti in contanti.
 * 🖨️ **Stampa Scontrini:** Formattazione pronta per stampanti termiche (58mm, 80mm) con scontrino cucina e cliente separati.

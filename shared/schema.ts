@@ -106,6 +106,7 @@ export type AppSettings = {
 
   // Registers
   numberOfRegisters: number;
+  registerNames: Record<string, string>; // key = register number as string
 
   // Economic settings
   coverPrice: number; // 0 = disabled

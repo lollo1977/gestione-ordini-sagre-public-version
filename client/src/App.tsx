@@ -42,6 +42,7 @@ function Router() {
     return (
       <RegisterSelector
         numberOfRegisters={settings.numberOfRegisters}
+        registerNames={settings.registerNames ?? {}}
         onRegisterSelect={handleRegisterSelect}
       />
     );
@@ -50,7 +51,7 @@ function Router() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-primary text-white px-4 py-2 flex justify-between items-center text-sm font-semibold">
-        <span>🏪 CASSA {registerId}</span>
+        <span>🏪 {settings.registerNames?.[String(registerId)] || `CASSA ${registerId}`}</span>
         <div className="flex items-center gap-3">
           <span
             data-testid="status-websocket"
