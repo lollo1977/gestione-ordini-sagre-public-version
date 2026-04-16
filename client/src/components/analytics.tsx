@@ -267,6 +267,8 @@ function ReportTab() {
   const { data: stats, isLoading: loadingStats } = useQuery<EventStats>({
     queryKey: ["/api/analytics/event", selectedId],
     enabled: !!selectedId,
+    refetchInterval: 15000,
+    staleTime: 0,
   });
 
   const hourlyWithGaps = stats ? buildHourlyFull(stats.hourlyStats) : [];
@@ -436,6 +438,8 @@ function ConfrontoTab() {
   const { data: cmp, isLoading } = useQuery<ComparisonData>({
     queryKey: [url],
     enabled: canCompare,
+    refetchInterval: 15000,
+    staleTime: 0,
   });
 
   // Build all dish names across both events
